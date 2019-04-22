@@ -6,8 +6,10 @@ import TrelloActionButton from './TrelloActionButton'
 const TrelloList = ({title , cards}) => {
     return(
         <div style={styles.container}>
-            <h2>{title}</h2>
-            { cards.map(card => <TrelloCard key={card.id} text={card.text} />) }
+            <h4>{title}</h4>
+            {
+                cards.map(card => (<TrelloCard key={card.id} text={card.text}/>))
+            }
             <TrelloActionButton/>
         </div>
     )
@@ -21,7 +23,7 @@ const styles = {
         width : 200,
         padding : 2,
         height: "100%",
-        marginRight: 10
+        marginRight: 0
 
     }
 }
