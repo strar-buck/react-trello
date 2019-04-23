@@ -40,10 +40,10 @@ class TrelloActionButton extends Component {
         console.log("props", this.props)
         const { dispatch } = this.props
         const { text } = this.state
+        // reseting the state
         this.setState({
             text : ''
         })
-
         if(text){
             dispatch(addList(text))
         }
@@ -53,7 +53,7 @@ class TrelloActionButton extends Component {
     handleAddCard = () => {
         const { dispatch, listID } = this.props
         const { text } = this.state
-
+        // Reseting the state 
         this.setState({
             text : ''
         })
@@ -103,7 +103,7 @@ class TrelloActionButton extends Component {
             
         )
     }
-
+    
     renderAddButton = () => {
         const { list } = this.props
         const buttonText = list ? 'Add another List' : 'Add another card'
