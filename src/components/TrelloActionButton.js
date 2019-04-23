@@ -6,8 +6,6 @@ import Card from '@material-ui/core/Card'
 import { addList } from '../actions/listAction'
 import { addCard } from '../actions/cardAction'
 import { connect } from 'react-redux'
-import styled from 'styled-components'
-
 
 
 class TrelloActionButton extends Component {
@@ -23,7 +21,7 @@ class TrelloActionButton extends Component {
         })
     }
 
-    // closing the opened for mon close or blur 
+    // closing the opened form on close or blur 
     closeForm = () => {
         this.setState({
             formOpen : false
@@ -103,7 +101,7 @@ class TrelloActionButton extends Component {
             
         )
     }
-    
+
     renderAddButton = () => {
         const { list } = this.props
         const buttonText = list ? 'Add another List' : 'Add another card'
@@ -129,6 +127,7 @@ class TrelloActionButton extends Component {
     }
 }
 
+// Css Style - will be convereted into styled components - update soon 
 const styles = {
     openForButtonGroup : {
         display: "flex",
