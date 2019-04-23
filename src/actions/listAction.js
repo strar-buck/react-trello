@@ -7,11 +7,3 @@ export const addList = (title) => {
         payload : title
     }
 }
-
-export const addCard = (text, listID) => {
-    console.log("adding card")
-    return{
-        type : CONSTANTS.ADD_CARD,
-        payload : {text: text, listId : listID}
-    }
-}

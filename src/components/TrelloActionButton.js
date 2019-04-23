@@ -4,8 +4,11 @@ import { Button } from '@material-ui/core';
 import Textarea from 'react-textarea-autosize';
 import Card from '@material-ui/core/Card'
 import { addList } from '../actions/listAction'
-import { addCard } from '../actions/listAction'
+import { addCard } from '../actions/cardAction'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
+
+
 
 class TrelloActionButton extends Component {
     state = {
@@ -35,14 +38,29 @@ class TrelloActionButton extends Component {
 
     handleAddList = () => {
         console.log("props", this.props)
-        const { addNewList , addNewCard, list } = this.props
+        const { dispatch } = this.props
         const { text } = this.state
-        const out = list ? addNewList(addList(text)) : addNewCard(addCard(text, 'listId'))
+        this.setState({
+            text : ''
+        })
 
         if(text){
-            return out 
+            dispatch(addList(text))
         }
         return
+    }
+
+    handleAddCard = () => {
+        const { dispatch, listID } = this.props
+        const { text } = this.state
+
+        this.setState({
+            text : ''
+        })
+        if(text){
+            dispatch(addCard(listID,text))
+        }
+        return 
     }
 
     renderForm = () => {
@@ -74,7 +92,7 @@ class TrelloActionButton extends Component {
                 </Card>
                 <div style={styles.formButtonGroup}>
                     <Button 
-                        onMouseDown={this.handleAddList}
+                        onMouseDown={list ? this.handleAddList : this.handleAddCard}
                         variant="contained" 
                         style={{color: "white", backgroundColor:"green"}}>
                         {buttonText}
@@ -128,11 +146,4 @@ const styles = {
 }
 
 
-const mapDispatchToProps = dispatch => {
-    return{
-        addNewList : (title) => dispatch(addList(title)),
-        addNewCard : (text,listId) => dispatch(addCard(text, listId))
-    }
-}
-
-export default connect(null,mapDispatchToProps)(TrelloActionButton)
+export default connect()(TrelloActionButton)

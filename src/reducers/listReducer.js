@@ -1,40 +1,41 @@
 import { CONSTANTS } from "../actions";
 
 let listId = 3
+let cardId = 6
 
 const initialState = [
     {
-        id : 0,
+        id : `listID-${0}`,
         title : "Machine Learning - week: 1",
         cards : [
             {
-                id : 0,
+                id : `cardID-${0}`,
                 text : "Probability courses"
             },
             {
-                id : 1,
+                id : `cardID-${1}`,
                 text : "Discrete maths"
             },
             {
-                id : 2,
+                id : `cardID-${2}`, 
                 text : "Basic of machine learning"
             }
         ]
     },
     {
-        id : 1,
+        id : `listID-${1}`,
         title : "Machine Learning - week: 2",
         cards : [
             {
-                id : 0,
+                id : `cardID-${3}`,
                 text : "Data Preprocessing and Cleaning"
             },
             {
-                id : 1,
+                id : `cardID-${4}`,
                 text : "Model Training "
             },
             {
-                id : 2,
+                id : `cardID-${5}`,
                 text : "Hyperparameter tuning"
             }
         ]
@@ -47,7 +48,7 @@ const listReducer = (state=initialState , action) => {
         case CONSTANTS.ADD_LIST:
             const newList = {
                 title : action.payload,
-                id : listId,
+                id : `listID-${listId}`,
                 cards : []
             }
             console.log("New List",newList)
@@ -57,8 +58,22 @@ const listReducer = (state=initialState , action) => {
         
             case CONSTANTS.ADD_CARD:
                 const newCard = {
-                    
+                    text : action.payload.text,
+                    id : `cardID-${cardId}`
                 }
+                cardId += 1
+                const newState = state.map(listInstance => {
+                    if(listInstance.id === action.payload.listID){
+                        return {
+                            ...listInstance,
+                            cards : [...listInstance.cards,newCard]
+                        }
+                    }else{
+                        return listInstance
+                    }
+                })
+                
+                return newState
         default:
             return state
     }
